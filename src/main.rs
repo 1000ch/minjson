@@ -3,18 +3,20 @@ use std::io::prelude::*;
 
 fn main() {
     let stdin = io::stdin();
+    let stdout = io::stdout();
 
-    let mut buffer = String::new();
+    let mut input = String::new();
     for line in stdin.lock().lines() {
-        buffer.push_str(&line.unwrap());
+        input.push_str(&line.unwrap());
     }
 
-    let mut minified = String::new();
-    for c in String::from(buffer).chars() {
+    let mut chars = Vec::new();
+    for c in String::from(input).chars() {
         if c != ' ' {
-            minified.push(c);
+            chars.push(c);
         }
     }
 
-    print!("{}", minified);
+    let string = chars.into_iter().collect::<String>();
+    stdout.lock().write(string.as_bytes());
 }
